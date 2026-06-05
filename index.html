@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Polynomy — Polymarket Bot & Performance Tracker</title>
-  
+
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Track your Polymarket automated trading bot performance in real-time. Monitor PnL, salary tiers, and detailed trade logs with Polynomy.">
-  <meta name="keywords" content="Polymarket, Trading Bot, PnL Tracker, Crypto Predict Market, Prediction Market Tracker, Automated Trading, Polynomy">
+  <meta name="description"
+    content="Track your Polymarket automated trading bot performance in real-time. Monitor PnL, salary tiers, and detailed trade logs with Polynomy.">
+  <meta name="keywords"
+    content="Polymarket, Trading Bot, PnL Tracker, Crypto Predict Market, Prediction Market Tracker, Automated Trading, Polynomy">
   <meta property="og:title" content="Polynomy — Polymarket Bot & Performance Tracker">
-  <meta property="og:description" content="Track your Polymarket automated trading bot performance in real-time. Monitor PnL, salary tiers, and detailed trade logs.">
+  <meta property="og:description"
+    content="Track your Polymarket automated trading bot performance in real-time. Monitor PnL, salary tiers, and detailed trade logs.">
   <meta property="og:type" content="website">
 
   <!-- Google Font: Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
   <style>
     /* ─── Global Reset & Styling Tokens ─── */
@@ -24,7 +29,7 @@
       margin: 0;
       padding: 0;
     }
-    
+
     :root {
       --bg: #050805;
       --bg-card: #0c120c;
@@ -248,10 +253,10 @@
       background: #000;
       border-radius: 40px;
       padding: 11px;
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8), 
-                  0 0 0 4px rgba(255,255,255,0.05),
-                  0 0 25px rgba(0, 230, 118, 0.15);
-      border: 2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8),
+        0 0 0 4px rgba(255, 255, 255, 0.05),
+        0 0 25px rgba(0, 230, 118, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.1);
       position: relative;
       z-index: 1;
       overflow: hidden;
@@ -333,11 +338,13 @@
         opacity: 0.6;
         box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7);
       }
+
       70% {
         transform: scale(1.1);
         opacity: 1;
         box-shadow: 0 0 0 6px rgba(0, 230, 118, 0);
       }
+
       100% {
         transform: scale(0.9);
         opacity: 0.6;
@@ -555,7 +562,7 @@
         gap: 48px;
         text-align: center;
       }
-      
+
       .hero-content {
         margin: 0 auto;
       }
@@ -590,6 +597,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="glow-top"></div>
@@ -609,12 +617,13 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="container hero-grid">
-      
+
       <!-- Copy Details -->
       <div class="hero-content">
         <h1>Track Polymarket Performance</h1>
         <p class="hero-tagline">
-          The ultimate dashboard for Polymarket bot operators. Monitor live PnL, view transaction history, track salary tier progress, and visualize performance in real-time.
+          The ultimate dashboard for Polymarket bot operators. Monitor live PnL, view transaction history, track salary
+          tier progress, and visualize performance in real-time.
         </p>
 
         <div class="features-list">
@@ -629,7 +638,8 @@
             <div class="feature-icon">💰</div>
             <div class="feature-text">
               <strong>Salary Tier Milestones</strong>
-              <p>Monitor profit-splits (70/30) and visualize buffer growth targets to unlock higher daily payout caps.</p>
+              <p>Monitor profit-splits (70/30) and visualize buffer growth targets to unlock higher daily payout caps.
+              </p>
             </div>
           </div>
           <div class="feature-item">
@@ -641,9 +651,10 @@
           </div>
         </div>
 
-        <a href="#" class="btn-download">
+        <a href="https://github.com/Anktox/polynomy-landing/releases/download/v1.0.0/app-release.apk"
+          class="btn-download">
           <svg viewBox="0 0 24 24">
-            <path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/>
+            <path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z" />
           </svg>
           Download APK
         </a>
@@ -654,7 +665,7 @@
         <div class="mockup-glow"></div>
         <div class="phone">
           <div class="screen">
-            
+
             <!-- Phone screen internal header -->
             <div class="app-header">
               <div class="app-logo">Polynomy<span>.</span></div>
@@ -703,14 +714,16 @@
                 <svg viewBox="0 0 200 60" width="100%" height="100%" preserveAspectRatio="none">
                   <defs>
                     <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#00E676" stop-opacity="0.3"/>
-                      <stop offset="100%" stop-color="#00E676" stop-opacity="0"/>
+                      <stop offset="0%" stop-color="#00E676" stop-opacity="0.3" />
+                      <stop offset="100%" stop-color="#00E676" stop-opacity="0" />
                     </linearGradient>
                   </defs>
                   <!-- Area Fill -->
-                  <path d="M 0 50 C 40 40, 60 20, 100 30 C 140 40, 160 10, 200 5 L 200 60 L 0 60 Z" fill="url(#chart-grad)" />
+                  <path d="M 0 50 C 40 40, 60 20, 100 30 C 140 40, 160 10, 200 5 L 200 60 L 0 60 Z"
+                    fill="url(#chart-grad)" />
                   <!-- Line Curve -->
-                  <path d="M 0 50 C 40 40, 60 20, 100 30 C 140 40, 160 10, 200 5" fill="none" stroke="#00E676" stroke-width="2" />
+                  <path d="M 0 50 C 40 40, 60 20, 100 30 C 140 40, 160 10, 200 5" fill="none" stroke="#00E676"
+                    stroke-width="2" />
                   <!-- Ending Dot -->
                   <circle cx="200" cy="5" r="3" fill="#00E676" />
                 </svg>
@@ -746,4 +759,5 @@
   </footer>
 
 </body>
+
 </html>
