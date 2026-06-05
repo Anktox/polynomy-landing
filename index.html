@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polynomy — Polymarket Bot & Performance Tracker</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Track your Polymarket automated trading bot performance in real-time. Monitor PnL, salary tiers, and detailed trade logs with Polynomy.">
+  <meta name="keywords" content="Polymarket, Trading Bot, PnL Tracker, Crypto Predict Market, Prediction Market Tracker, Automated Trading, Polynomy">
+  <meta property="og:title" content="Polynomy — Polymarket Bot & Performance Tracker">
+  <meta property="og:description" content="Track your Polymarket automated trading bot performance in real-time. Monitor PnL, salary tiers, and detailed trade logs.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Font: Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Global Reset & Styling Tokens ─── */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    :root {
+      --bg: #050805;
+      --bg-card: #0c120c;
+      --bg-card-hover: #121c12;
+      --border: rgba(0, 230, 118, 0.15);
+      --border-glow: rgba(0, 230, 118, 0.35);
+      --text: #ffffff;
+      --text-muted: #889988;
+      --text-dim: #5c6a5c;
+      --primary: #00E676;
+      --primary-glow: rgba(0, 230, 118, 0.25);
+      --red: #ff4444;
+      --red-glow: rgba(255, 68, 68, 0.2);
+      --font: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Glow Accents ─── */
+    .glow-top {
+      position: absolute;
+      top: -300px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 230, 118, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(100px);
+    }
+
+    .glow-right {
+      position: absolute;
+      top: 300px;
+      right: -200px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0, 230, 118, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(120px);
+    }
+
+    /* ─── Container ─── */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── Header & Navigation ─── */
+    header {
+      padding: 32px 0;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--primary);
+      text-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    /* ─── Hero Section ─── */
+    .hero {
+      padding: 40px 0 80px 0;
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .hero-content {
+      max-width: 620px;
+    }
+
+    h1 {
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #ffffff 40%, #a2ffa2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-tagline {
+      font-size: 20px;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      font-weight: 400;
+    }
+
+    /* ─── Bullet points ─── */
+    .features-list {
+      margin-bottom: 44px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .feature-icon {
+      background: rgba(0, 230, 118, 0.08);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--primary);
+      font-size: 14px;
+    }
+
+    .feature-text strong {
+      color: var(--text);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .feature-text p {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* ─── CTA Button ─── */
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #00E676 0%, #00b359 100%);
+      color: #002e17;
+      text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 20px rgba(0, 230, 118, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 230, 118, 0.4);
+      filter: brightness(1.1);
+    }
+
+    .btn-download:active {
+      transform: translateY(0);
+    }
+
+    .btn-download svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* ─── Mobile App Mockup (CSS Bezel) ─── */
+    .mockup-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .mockup-glow {
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      background: radial-gradient(circle, rgba(0, 230, 118, 0.15) 0%, transparent 60%);
+      z-index: 0;
+      filter: blur(40px);
+    }
+
+    .phone {
+      width: 320px;
+      height: 640px;
+      background: #000;
+      border-radius: 40px;
+      padding: 11px;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8), 
+                  0 0 0 4px rgba(255,255,255,0.05),
+                  0 0 25px rgba(0, 230, 118, 0.15);
+      border: 2px solid rgba(255,255,255,0.1);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* Notch */
+    .phone::after {
+      content: '';
+      position: absolute;
+      top: 11px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 22px;
+      background: #000;
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      z-index: 10;
+    }
+
+    .screen {
+      width: 100%;
+      height: 100%;
+      background-color: #060b06;
+      border-radius: 30px;
+      overflow-y: hidden;
+      padding: 24px 16px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      font-size: 12px;
+      user-select: none;
+    }
+
+    /* App Internal Header */
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      margin-bottom: 18px;
+    }
+
+    .app-logo {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .app-logo span {
+      color: var(--primary);
+    }
+
+    /* Blinking Live Indicator */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 230, 118, 0.1);
+      border: 1px solid rgba(0, 230, 118, 0.3);
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-weight: 800;
+      color: var(--primary);
+      font-size: 9px;
+      letter-spacing: 0.5px;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--primary);
+      border-radius: 50%;
+      animation: pulse 1.6s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.9);
+        opacity: 0.6;
+        box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7);
+      }
+      70% {
+        transform: scale(1.1);
+        opacity: 1;
+        box-shadow: 0 0 0 6px rgba(0, 230, 118, 0);
+      }
+      100% {
+        transform: scale(0.9);
+        opacity: 0.6;
+        box-shadow: 0 0 0 0 rgba(0, 230, 118, 0);
+      }
+    }
+
+    /* Total Balance Card (Dashboard Mockup) */
+    .card-total {
+      background: linear-gradient(135deg, rgba(0, 230, 118, 0.12) 0%, rgba(0, 230, 118, 0.02) 100%);
+      border: 1.5px solid var(--border-glow);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+      text-align: center;
+      box-shadow: 0 8px 16px rgba(0, 230, 118, 0.05);
+      position: relative;
+    }
+
+    .card-total::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+
+    .lbl-total {
+      color: var(--text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .val-total {
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .splits-total {
+      color: var(--text-muted);
+      font-size: 11px;
+    }
+
+    .splits-total span {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .divider {
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.06);
+      margin: 10px 0;
+    }
+
+    .pnl-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .pnl-row .lbl {
+      color: var(--text-muted);
+    }
+
+    .pnl-row .val {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* Bot cards row */
+    .mock-bots-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .mock-bot-card {
+      background: rgba(20, 30, 20, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 10px;
+      position: relative;
+    }
+
+    .mock-bot-accent {
+      position: absolute;
+      left: 0;
+      top: 10px;
+      bottom: 10px;
+      width: 3px;
+      background-color: var(--primary);
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+    }
+
+    .mock-bot-name {
+      color: var(--text-muted);
+      font-size: 10px;
+      margin-bottom: 4px;
+      padding-left: 6px;
+    }
+
+    .mock-bot-val {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      padding-left: 6px;
+      margin-bottom: 4px;
+    }
+
+    .mock-bot-rate {
+      color: var(--text-muted);
+      font-size: 9px;
+      padding-left: 6px;
+    }
+
+    /* Small Mock Chart */
+    .mock-chart-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 12px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+    }
+
+    .chart-title {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .chart-svg-wrap {
+      width: 100%;
+      height: 70px;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    /* Payout row mock */
+    .mock-payout-list {
+      background: rgba(20, 30, 20, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 8px 12px;
+    }
+
+    .payout-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0;
+    }
+
+    .payout-date {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 10px;
+    }
+
+    .payout-date-badge {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1.5px solid rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      padding: 2px 4px;
+      font-weight: 700;
+      font-size: 8px;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .payout-amt {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 11px;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      margin-top: auto;
+    }
+
+    .footer-inner {
+      text-align: center;
+    }
+
+    .footer-inner p {
+      font-size: 14px;
+      color: var(--text-dim);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── Responsive Queries ─── */
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        text-align: center;
+      }
+      
+      .hero-content {
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 44px;
+      }
+
+      .features-list {
+        align-items: center;
+      }
+
+      .feature-item {
+        text-align: left;
+        max-width: 420px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 36px;
+      }
+
+      .hero-tagline {
+        font-size: 17px;
+      }
+
+      .phone {
+        width: 290px;
+        height: 580px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-top"></div>
+  <div class="glow-right"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container header-inner">
+      <a href="#" class="logo">Polynomy<span>.</span></a>
+      <div class="status-badge">
+        <div class="live-dot"></div>
+        LIVE TRACKING
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-grid">
+      
+      <!-- Copy Details -->
+      <div class="hero-content">
+        <h1>Track Polymarket Performance</h1>
+        <p class="hero-tagline">
+          The ultimate dashboard for Polymarket bot operators. Monitor live PnL, view transaction history, track salary tier progress, and visualize performance in real-time.
+        </p>
+
+        <div class="features-list">
+          <div class="feature-item">
+            <div class="feature-icon">📈</div>
+            <div class="feature-text">
+              <strong>Real-time Performance Graphs</strong>
+              <p>Keep track of bot executions and live performance curves across active portfolios.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">💰</div>
+            <div class="feature-text">
+              <strong>Salary Tier Milestones</strong>
+              <p>Monitor profit-splits (70/30) and visualize buffer growth targets to unlock higher daily payout caps.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">📅</div>
+            <div class="feature-text">
+              <strong>Interactive PnL Heatmaps</strong>
+              <p>Review daily green and red snapshot summaries directly on a built-in calendar.</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="#" class="btn-download">
+          <svg viewBox="0 0 24 24">
+            <path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/>
+          </svg>
+          Download APK
+        </a>
+      </div>
+
+      <!-- App Mockup -->
+      <div class="mockup-container">
+        <div class="mockup-glow"></div>
+        <div class="phone">
+          <div class="screen">
+            
+            <!-- Phone screen internal header -->
+            <div class="app-header">
+              <div class="app-logo">Polynomy<span>.</span></div>
+              <div class="status-badge" style="font-size: 8px; padding: 2px 6px;">
+                <div class="live-dot" style="width: 4px; height: 4px;"></div>
+                LIVE
+              </div>
+            </div>
+
+            <!-- Total balance mockup component -->
+            <div class="card-total">
+              <div class="lbl-total">Total Balance</div>
+              <div class="val-total">₹108,000.00</div>
+              <div class="splits-total">15m: <span>₹67,500</span> · 5m: <span>₹40,500</span></div>
+              <div class="divider"></div>
+              <div class="pnl-row">
+                <span class="lbl">Since start</span>
+                <span class="val">+₹90,000.00</span>
+              </div>
+              <div class="pnl-row">
+                <span class="lbl">Today PnL</span>
+                <span class="val">+₹3,240.00</span>
+              </div>
+            </div>
+
+            <!-- Bot cards mockup component -->
+            <div class="mock-bots-row">
+              <div class="mock-bot-card">
+                <div class="mock-bot-accent"></div>
+                <div class="mock-bot-name">15m Bot</div>
+                <div class="mock-bot-val">₹67,500</div>
+                <div class="mock-bot-rate">12W · 2L</div>
+              </div>
+              <div class="mock-bot-card">
+                <div class="mock-bot-accent"></div>
+                <div class="mock-bot-name">5m Bot</div>
+                <div class="mock-bot-val">₹40,500</div>
+                <div class="mock-bot-rate">15W · 4L</div>
+              </div>
+            </div>
+
+            <!-- Chart mockup component -->
+            <div class="mock-chart-card">
+              <div class="chart-title">Balance Curve (24h)</div>
+              <div class="chart-svg-wrap">
+                <svg viewBox="0 0 200 60" width="100%" height="100%" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#00E676" stop-opacity="0.3"/>
+                      <stop offset="100%" stop-color="#00E676" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- Area Fill -->
+                  <path d="M 0 50 C 40 40, 60 20, 100 30 C 140 40, 160 10, 200 5 L 200 60 L 0 60 Z" fill="url(#chart-grad)" />
+                  <!-- Line Curve -->
+                  <path d="M 0 50 C 40 40, 60 20, 100 30 C 140 40, 160 10, 200 5" fill="none" stroke="#00E676" stroke-width="2" />
+                  <!-- Ending Dot -->
+                  <circle cx="200" cy="5" r="3" fill="#00E676" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Recent payouts mock component -->
+            <div class="mock-payout-list">
+              <div class="payout-item">
+                <div class="payout-date">
+                  <div class="payout-date-badge">
+                    <div style="font-size: 6px; font-weight: 500;">JUN</div>
+                    <div style="font-size: 9px;">05</div>
+                  </div>
+                  Daily Payout
+                </div>
+                <div class="payout-amt">+₹1,350.00</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <p>© Polynomy</p>
+    </div>
+  </footer>
+
+</body>
+</html>
