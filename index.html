@@ -555,6 +555,46 @@
       letter-spacing: 0.5px;
     }
 
+    /* ─── Discord CTA ─── */
+    .btn-discord {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--primary);
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid var(--border-glow);
+      margin-left: 12px;
+    }
+
+    .btn-discord:hover {
+      background: rgba(0, 230, 118, 0.08);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .invite-note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .invite-note strong {
+      color: var(--text-muted);
+    }
+
     /* ─── Responsive Queries ─── */
     @media (max-width: 900px) {
       .hero-grid {
@@ -563,8 +603,14 @@
         text-align: center;
       }
 
+      /* Mockup first on mobile */
+      .mockup-container {
+        order: -1;
+      }
+
       .hero-content {
         margin: 0 auto;
+        order: 1;
       }
 
       h1 {
@@ -578,6 +624,14 @@
       .feature-item {
         text-align: left;
         max-width: 420px;
+      }
+
+      .cta-row {
+        justify-content: center;
+      }
+
+      .invite-note {
+        text-align: center;
       }
     }
 
@@ -620,44 +674,51 @@
 
       <!-- Copy Details -->
       <div class="hero-content">
-        <h1>Track Polymarket Performance</h1>
+        <h1>Track Your Polymarket Bots</h1>
         <p class="hero-tagline">
-          The ultimate dashboard for Polymarket bot operators. Monitor live PnL, view transaction history, track salary
-          tier progress, and visualize performance in real-time.
+          A private dashboard for Polynomy investors. Watch your bots trade BTC, SOL, XRP &amp; ETH on Polymarket UP/DOWN markets — 5-minute and 15-minute intervals — and track your daily payouts in real-time.
         </p>
 
         <div class="features-list">
           <div class="feature-item">
+            <div class="feature-icon">🤖</div>
+            <div class="feature-text">
+              <strong>8 Active Trading Bots</strong>
+              <p>BTC, SOL, XRP &amp; ETH — each running both a 5-minute and 15-minute Polymarket UP/DOWN strategy simultaneously.</p>
+            </div>
+          </div>
+          <div class="feature-item">
             <div class="feature-icon">📈</div>
             <div class="feature-text">
-              <strong>Real-time Performance Graphs</strong>
-              <p>Keep track of bot executions and live performance curves across active portfolios.</p>
+              <strong>Live PnL &amp; Balance Curves</strong>
+              <p>Real-time performance graphs showing capital growth, trade wins/losses, and balance history for every bot.</p>
             </div>
           </div>
           <div class="feature-item">
             <div class="feature-icon">💰</div>
             <div class="feature-text">
-              <strong>Salary Tier Milestones</strong>
-              <p>Monitor profit-splits (70/30) and visualize buffer growth targets to unlock higher daily payout caps.
-              </p>
-            </div>
-          </div>
-          <div class="feature-item">
-            <div class="feature-icon">📅</div>
-            <div class="feature-text">
-              <strong>Interactive PnL Heatmaps</strong>
-              <p>Review daily green and red snapshot summaries directly on a built-in calendar.</p>
+              <strong>Investor Payouts</strong>
+              <p>Earn daily payouts on your investment. Profit is split 70/30 — you keep 70%. Track your tier progress and payout history directly in the app.</p>
             </div>
           </div>
         </div>
 
-        <a href="https://github.com/Anktox/polynomy-landing/releases/download/v1.0.0/app-release.apk"
-          class="btn-download">
-          <svg viewBox="0 0 24 24">
-            <path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z" />
-          </svg>
-          Download APK
-        </a>
+        <div class="cta-row">
+          <a href="https://github.com/Anktox/polynomy-landing/releases/download/v1.0.0/app-release.apk"
+            class="btn-download">
+            <svg viewBox="0 0 24 24">
+              <path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z" />
+            </svg>
+            Download APK
+          </a>
+          <a href="https://discord.com/users/akmaster" class="btn-discord">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+            Message on Discord
+          </a>
+        </div>
+        <p class="invite-note">🔒 <strong>Closed program.</strong> DM the owner <strong>@.akmaster</strong> on Discord to request access.</p>
       </div>
 
       <!-- App Mockup -->
@@ -754,7 +815,7 @@
   <!-- Footer -->
   <footer>
     <div class="container footer-inner">
-      <p>© Polynomy</p>
+      <p>© Polynomy &nbsp;·&nbsp; DM <strong style="color: var(--text-muted);">@.akmaster</strong> on Discord to request access</p>
     </div>
   </footer>
 
